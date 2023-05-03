@@ -7,7 +7,7 @@ from Clock import Clock
 
 def main() -> None:
     clock = Clock()
-    clock.clock()
+    clock.run()
 
 
 if __name__ == "__main__":

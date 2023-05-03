@@ -10,7 +10,7 @@ class Clock:
     schedule = TimeSchedule().schedule
     dq: deque = deque()
 
-    def clock(self) -> None:
+    def run(self) -> None:
         while True:
             self.tick()
             time.sleep(1)
