@@ -1,7 +1,9 @@
 from datetime import datetime
 import time
+from TimeSchedule import TimeSchedule
 
 def main():
+	ts = TimeSchedule()
 	clock()
 
 def clock():
