@@ -1,54 +1,54 @@
 {
     "ChimeSettings": [
         {
-            "name": "1a",
-            "time": "0551",
+            "name": "1コマ開始",
+            "time": "0840",
             "sound": "0840.mp3"
         },
         {
-            "name": "1b",
+            "name": "1コマ終了",
             "time": "1010",
-            "sound": "1010.mp3"
+            "sound": "0840.mp3"
         },
         {
-            "name": "2a",
+            "name": "2コマ開始",
             "time": "1020",
-            "sound": "1020.mp3"
+            "sound": "0840.mp3"
         },
         {
-            "name": "2b",
-            "time": "1150",
-            "sound": "1050.mp3"
+            "name": "2コマ終了",
+            "time": "1050",
+            "sound": "0840.mp3"
         },
         {
-            "name": "3a",
+            "name": "3コマ開始",
             "time": "1245",
-            "sound": "1245.mp3"
+            "sound": "0840.mp3"
         },
         {
-            "name": "3b",
+            "name": "3コマ終了",
             "time": "1415",
-            "sound": "1415.mp3"
+            "sound": "0840.mp3"
         },
         {
-            "name": "4a",
+            "name": "4コマ開始",
             "time": "1425",
-            "sound": "1225.mp3"
+            "sound": "0840.mp3"
         },
         {
-            "name": "4b",
+            "name": "4コマ終了",
             "time": "1555",
-            "sound": "1555.mp3"
+            "sound": "0840.mp3"
         },
         {
-            "name": "5a",
+            "name": "5コマ開始",
             "time": "1605",
-            "sound": "1605.mp3"
+            "sound": "0840.mp3"
         },
         {
-            "name": "5b",
+            "name": "5コマ終了",
             "time": "1735",
-            "sound": "1735.mp3"
+            "sound": "0840.mp3"
         }
     ]
 }
