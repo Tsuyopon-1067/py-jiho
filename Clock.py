@@ -19,7 +19,8 @@ class Clock:
     def run(self) -> None:
         while True:
             self.tick()
-            time.sleep(1)
+            wait: float = 1-float(datetime.now().strftime("0.%f"))
+            time.sleep(wait)
 
     def tick(self) -> None:
         today_datetime_type = datetime.today()
