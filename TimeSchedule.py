@@ -1,11 +1,13 @@
 import json
 from typing import Dict
 
+
 class ScheduleElement:
     name: str
     time: int
     sound: str
-    def __init__(self, data: Dict[str, str]) -> None :
+
+    def __init__(self, data: Dict[str, str]) -> None:
         self.name = data["name"]
         self.time = int(data["time"])
         self.sound = data["sound"]
@@ -15,7 +17,6 @@ class ScheduleElement:
 
     def str(self) -> str:
         return "[" + self.name + ": " + str(self.time) + ", " + self.sound + "]"
-
 
 
 class TimeSchedule:
@@ -40,6 +41,7 @@ class TimeSchedule:
             res += "\n"
         res += "]"
         return res
+
 
 def _gettime_for_sort(x: ScheduleElement) -> int:
     return -x.time
