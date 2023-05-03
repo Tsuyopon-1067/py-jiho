@@ -2,6 +2,7 @@ from datetime import datetime
 import time
 from TimeSchedule import TimeSchedule, ScheduleElement
 from playsound import playsound
+from collections import deque
 
 
 def main() -> None:
@@ -9,46 +10,52 @@ def main() -> None:
 
 
 def clock() -> None:
-    before: int = -1  # 前に実行した時間
+    day: int = -1
     schedule = TimeSchedule().schedule
+    dq: deque = deque()
     while True:
-        before = tick(before, schedule)
+        day = tick(day, schedule, dq)
         time.sleep(1)
 
 
-def tick(before: int, schedule: list[ScheduleElement]) -> int:
+def tick(day: int, schedule: list[ScheduleElement], dq: deque) -> int:
     today_datetime_type = datetime.today()
     now: int = int(today_datetime_type.strftime("%H%M"))
     now_s: str = today_datetime_type.strftime("%H%:%M:%S")
     print(now_s)
 
-    isend: bool = True
-    nextstr: str = ""
-    nextidx: int = 0
-    for i in range(0, len(schedule)):
-        if before < schedule[i].time:  # n側にまだ後のチャイムが登録されている
-            isend = False
-            nextidx = i
-            if i+1 == len(schedule):
-                continue
-            if before < schedule[i+i].time and schedule[i+1].time < now:
-                playsound(schedule[i+1].sound)
-                before = now
-                nextstr = _nextstr("playing", schedule, i+1)
+    today: int = int(today_datetime_type.strftime("%d"))
+    if (day != today):
+        day = today
+        for v in schedule:
+            dq.append(v)
 
-    if nextstr == "":
-        nextstr = _nextstr("next", schedule, nextidx)
+    nextstr: str = ""
+
+    top: ScheduleElement
+    if len(dq) == 0:
+        nextstr = "next day"
+    else:
+        top = dq.pop()
+
+        if top.time <= now:
+            playsound(top.sound)
+            if len(dq) == 0:
+                nextstr = "next day"
+            else:
+                next: ScheduleElement = dq.pop()
+                dq.append(next)
+                nextstr = _nextstr("playing", next)
+        else:
+            dq.append(top)
+            nextstr = _nextstr("next", top)
 
     print(nextstr)
 
-    if isend:
-        before = -1
-
-    return before
+    return day
 
 
-def _nextstr(s: str, schedule: list[ScheduleElement], i: int) -> str:
-    v: ScheduleElement = schedule[i]
+def _nextstr(s: str, v: ScheduleElement) -> str:
     time: str = "{:02d}:{:02d}".format(int(v.time/100), v.time % 100)
     return s + ": " + v.name + "(" + time + "): " + v.sound
 
