@@ -58,7 +58,8 @@ class Clock:
                 self.dq.append(top)
                 nextstr = self._nextstr("next", top)
 
-            self._printtitle(now_s, nextstr)
+        self._printtitle(now_s, nextstr)
+        # print(now_s, nextstr)
         return
 
     def _nextstr(self, s: str, v: ScheduleElement) -> str:
