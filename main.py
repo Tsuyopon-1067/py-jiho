@@ -1,22 +1,58 @@
 from datetime import datetime
 import time
-from TimeSchedule import TimeSchedule
+from TimeSchedule import TimeSchedule, ScheduleElement
+from playsound import playsound
+
 
 def main() -> None:
-	ts = TimeSchedule()
-	clock()
+    clock()
+
 
 def clock() -> None:
-	while True:
-		tick()
-		time.sleep(1)
+    before: int = -1  # 前に実行した時間
+    schedule = TimeSchedule().schedule
+    while True:
+        before = tick(before, schedule)
+        time.sleep(1)
 
-def tick() -> None:
-	today_datetime_type = datetime.today()
-	now = int(today_datetime_type.strftime("%H%M"))
-	now_s = today_datetime_type.strftime("%H%:%M:%S")
-	print(now_s)
+
+def tick(before: int, schedule: list[ScheduleElement]) -> int:
+    today_datetime_type = datetime.today()
+    now: int = int(today_datetime_type.strftime("%H%M"))
+    now_s: str = today_datetime_type.strftime("%H%:%M:%S")
+    print(now_s)
+
+    isend: bool = True
+    nextstr: str = ""
+    nextidx: int = 0
+    for i in range(0, len(schedule)):
+        if before < schedule[i].time:
+            isend = False
+            nextidx = i+1
+            if schedule[i].time <= now:
+                playsound(schedule[i+1].sound)
+                before = now
+                nextstr = _nextstr("playing", schedule, i+1)
+
+    if nextstr == "":
+        if nextidx > 0:
+            nextstr = _nextstr("next", schedule, nextidx-1)
+        else:
+            nextstr = _nextstr("next", schedule, len(schedule)-1)
+
+    print(nextstr)
+
+    if isend:
+        before = -1
+
+    return before
+
+
+def _nextstr(s: str, schedule: list[ScheduleElement], i: int) -> str:
+    v: ScheduleElement = schedule[i]
+    time: str = str(int(v.time/100)) + ":" + str(v.time % 100)
+    return s + ": " + v.name + "(" + time + "): " + v.sound
+
 
 if __name__ == "__main__":
     main()
-
