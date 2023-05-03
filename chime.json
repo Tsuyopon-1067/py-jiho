@@ -1,0 +1,54 @@
+{
+    "ChimeSettings": [
+        {
+            "class": "1a",
+            "time": "0551",
+            "sound": "0840.mp3"
+        },
+        {
+            "class": "1b",
+            "time": "1010",
+            "sound": "1010.mp3"
+        },
+        {
+            "class": "2a",
+            "time": "1020",
+            "sound": "1020.mp3"
+        },
+        {
+            "class": "2b",
+            "time": "1150",
+            "sound": "1050.mp3"
+        },
+        {
+            "class": "3a",
+            "time": "1245",
+            "sound": "1245.mp3"
+        },
+        {
+            "class": "3b",
+            "time": "1415",
+            "sound": "1415.mp3"
+        },
+        {
+            "class": "4a",
+            "time": "1425",
+            "sound": "1225.mp3"
+        },
+        {
+            "class": "4b",
+            "time": "1555",
+            "sound": "1555.mp3"
+        },
+        {
+            "class": "5a",
+            "time": "1605",
+            "sound": "1605.mp3"
+        },
+        {
+            "class": "5b",
+            "time": "1735",
+            "sound": "1735.mp3"
+        }
+    ]
+}
