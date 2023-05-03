@@ -49,7 +49,7 @@ def tick(before: int, schedule: list[ScheduleElement]) -> int:
 
 def _nextstr(s: str, schedule: list[ScheduleElement], i: int) -> str:
     v: ScheduleElement = schedule[i]
-    time: str = str(int(v.time/100)) + ":" + str(v.time % 100)
+    time: str = "{:02d}:{:02d}".format(int(v.time/100), v.time % 100)
     return s + ": " + v.name + "(" + time + "): " + v.sound
 
 
