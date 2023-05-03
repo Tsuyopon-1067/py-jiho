@@ -26,19 +26,18 @@ def tick(before: int, schedule: list[ScheduleElement]) -> int:
     nextstr: str = ""
     nextidx: int = 0
     for i in range(0, len(schedule)):
-        if before < schedule[i].time:
+        if before < schedule[i].time:  # n側にまだ後のチャイムが登録されている
             isend = False
-            nextidx = i+1
-            if schedule[i].time <= now:
+            nextidx = i
+            if i+1 == len(schedule):
+                continue
+            if before < schedule[i+i].time and schedule[i+1].time < now:
                 playsound(schedule[i+1].sound)
                 before = now
                 nextstr = _nextstr("playing", schedule, i+1)
 
     if nextstr == "":
-        if nextidx > 0:
-            nextstr = _nextstr("next", schedule, nextidx-1)
-        else:
-            nextstr = _nextstr("next", schedule, len(schedule)-1)
+        nextstr = _nextstr("next", schedule, nextidx)
 
     print(nextstr)
 
