@@ -1,14 +1,20 @@
 from datetime import datetime
 import time
 from TimeSchedule import TimeSchedule, ScheduleElement
-from playsound import playsound
 from collections import deque
+from SoundPlayer import Sound
+from queue import Queue
 
 
 class Clock:
     day: int = -1
     schedule = TimeSchedule().schedule
     dq: deque = deque()
+
+    soundqueue: Queue[Sound] = Queue()
+
+    def __init__(self, soundqueue: Queue[Sound]):
+        self.soundqueue = soundqueue
 
     def run(self) -> None:
         while True:
@@ -36,7 +42,9 @@ class Clock:
             top = self.dq.pop()
 
             if top.time <= now:
-                playsound(top.sound)
+                sound: Sound = Sound(top.sound, 0.1)
+                self.soundqueue.put(sound)
+
                 if len(self.dq) == 0:
                     nextstr = "next day"
                 else:
