@@ -32,7 +32,7 @@ class Clock:
         now_s: str = today_datetime_type.strftime("%H%:%M:%S")
 
         today: int = int(today_datetime_type.strftime("%d"))
-        if (self.day != today):
+        if self.day != today:
             self.day = today
             for v in self.schedule:
                 self.dq.append(v)
