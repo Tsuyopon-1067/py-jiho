@@ -54,7 +54,8 @@ class Clock:
         # 鳴らすべきならチャイムを鳴らす
         top: ScheduleElement
         if len(self.dq) == 0:
-            return "next day"  # キューが空っぽなら明日鳴らす
+            # キューが空っぽなら明日鳴らす
+            return self._nextstr("next day", self.schedule[len(self.schedule)-1])
 
         top = self.dq.pop()  # 一回今から最も早く鳴るチャイムの情報をもらう 鳴らさなかったら後で戻す
 
@@ -65,7 +66,7 @@ class Clock:
             self.soundqueue.put(sound)  # 別スレッドに情報を渡す
 
             if len(self.dq) == 0:  # チャイムをならしてキューがからっぽなら次に鳴らすのは明日
-                return "next day"
+                return self._nextstr("next day", self.schedule[len(self.schedule)-1])
             else:  # まだ次に鳴らすチャイムがあるならそれを表示する
                 next: ScheduleElement = self.dq.pop()  # さらにキューから一つ取って戻す
                 self.dq.append(next)
