@@ -4,6 +4,7 @@ from TimeSchedule import TimeSchedule, ScheduleElement
 from collections import deque
 from SoundPlayer import Sound
 from queue import Queue
+import light_sensor
 
 
 class Clock:
@@ -45,8 +46,9 @@ class Clock:
             top = self.dq.pop()
 
             if top.time <= now:
-                sound: Sound = Sound(top.sound, 0.1)
-                self.soundqueue.put(sound)
+                if light_sensor.is_open():
+                    sound: Sound = Sound(top.sound, 0.1)
+                    self.soundqueue.put(sound)
 
                 if len(self.dq) == 0:
                     nextstr = "next day"
