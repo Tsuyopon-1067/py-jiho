@@ -8,55 +8,61 @@ import light_sensor
 
 
 class Clock:
-    day: int = -1
-    schedule = TimeSchedule().schedule
-    dq: deque = deque()
-    _title: str = ""
+    # 時計を動かすクラス
+    # チャイムを鳴らすべき時間になるとsoundqueueに音声情報を入れる　その後SoundPlayerクラスがいろいろやってくれる
+    day: int = -1  # 今日の日付が入る 日付が変わってチャイムをリセットするときに使う
+    schedule = TimeSchedule().schedule  # チャイムを鳴らすべき時間情報の配列
+    dq: deque = deque()  # チャイムキュー 普通のキューよりちょっと早いらしいからdequeを使う チャイムを鳴らしたい時間が早い順に入れておく
+    _title: str = ""  # 2つともテキスト時計表示用
     _underline: str = ""
 
+    # スレッド間通信用キュー 鳴らしたい音声の情報を入れてSoundPlayerクラスに再生してもらう
     soundqueue: Queue[Sound] = Queue()
 
     def __init__(self, soundqueue: Queue[Sound]):
-        self.soundqueue = soundqueue
-        self._createtitle()
+        self.soundqueue = soundqueue  # mainからスレッド間通信用キューをもらう
+        self._createtitle()  # 時計タイトル表示用テキストをつくるだけ
 
     def run(self) -> None:
         while True:
-            self.tick()
+            self.tick()  # 毎秒実行
+            # 現在？.xx秒 -> 1-0.xx秒待てば秒が変わるときに更新できる
             wait: float = 1-float(datetime.now().strftime("0.%f"))
             time.sleep(wait)
 
     def tick(self) -> None:
         today_datetime_type = datetime.today()
-        now: int = int(today_datetime_type.strftime("%H%M"))
-        now_s: str = today_datetime_type.strftime("%H%:%M:%S")
+        now: int = int(today_datetime_type.strftime("%H%M"))  # チャイム鳴らすタイミング判定用
+        now_s: str = today_datetime_type.strftime("%H%:%M:%S")  # 時計表示用
 
-        today: int = int(today_datetime_type.strftime("%d"))
-        if self.day != today:
+        today: int = int(today_datetime_type.strftime("%d"))  # 今日の日付
+        if self.day != today:  # 日付が変わったらチャイムキューをリセットして補充し直す
             self.day = today
+            self.dq.clear()
             for v in self.schedule:
                 self.dq.append(v)
 
-        nextstr: str = ""
+        nextstr: str = ""  # 次になるチャイムの情報
 
         top: ScheduleElement
         if len(self.dq) == 0:
-            nextstr = "next day"
+            nextstr = "next day"  # キューが空っぽなら明日鳴らす
         else:
-            top = self.dq.pop()
+            top = self.dq.pop()  # 一回今から最も早く鳴るチャイムの情報をもらう 鳴らさなかったら後で戻す
 
-            if top.time <= now:
-                if light_sensor.is_open():
+            if top.time <= now:  # 鳴らすべき時刻を過ぎてるので鳴らしたい
+                if light_sensor.is_open():  # 部屋が明るければ鳴らす
+                    # 第2引数はチャイムを鳴らした後のsleep時間
                     sound: Sound = Sound(top.sound, 0.1)
-                    self.soundqueue.put(sound)
+                    self.soundqueue.put(sound)  # 別スレッドに情報を渡す
 
-                if len(self.dq) == 0:
+                if len(self.dq) == 0:  # これならしてキューがからっぽなら明日鳴らす
                     nextstr = "next day"
-                else:
-                    next: ScheduleElement = self.dq.pop()
-                    self.dq.append(next)
+                else:  # まだ次に鳴らすチャイムがあるならそれを表示する
+                    next: ScheduleElement = self.dq.pop()  # さらにキューから一つ取る
+                    self.dq.append(next)  # 情報をもらったら戻す
                     nextstr = self._nextstr("playing", next)
-            else:
+            else:  # まだ鳴らすべき時間でないときはtopがnextの情報なのでキューに戻して表示する
                 self.dq.append(top)
                 nextstr = self._nextstr("next", top)
 
@@ -69,6 +75,8 @@ class Clock:
         return s + ": " + v.name + "(" + time + "): " + v.sound
 
     def _printtitle(self, now_s: str, nextstr: str) -> None:
+        # タイトル・時間・次チャイム情報を表示する
+        # 毎秒見えるやつはこれ
         print("\033[2J")
         print(self._title)
         print("|")

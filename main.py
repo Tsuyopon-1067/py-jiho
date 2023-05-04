@@ -6,12 +6,12 @@ import light_sensor
 
 
 def main() -> None:
-    soundqueue: Queue[Sound] = Queue()
+    soundqueue: Queue[Sound] = Queue()  # スレッド間通信用 再生する音声情報をいれる
 
-    clock: Clock = Clock(soundqueue)
-    soundplayer: SoundPlayer = SoundPlayer(soundqueue)
+    clock: Clock = Clock(soundqueue)  # 時計を動かす
+    soundplayer: SoundPlayer = SoundPlayer(soundqueue)  # soundqueueを監視して音声を鳴らす
 
-    with ThreadPoolExecutor(max_workers=2) as executor:
+    with ThreadPoolExecutor(max_workers=2) as executor:  # 以下の2つを別スレッドで動かす
         executor.submit(clock.run)
         executor.submit(soundplayer.run)
 

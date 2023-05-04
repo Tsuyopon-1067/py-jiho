@@ -3,9 +3,11 @@ from typing import Dict
 
 
 class ScheduleElement:
-    name: str
-    time: int
-    sound: str
+    # チャイムを鳴らすべき時間1つについての情報を保存
+    # printとstrメソッドは基本デバック用
+    name: str  # 科目名とか
+    time: int  # 鳴らす時間
+    sound: str  # 鳴らしたい音声ファイルの場所
 
     def __init__(self, data: Dict[str, str]) -> None:
         self.name = data["name"]
@@ -20,13 +22,17 @@ class ScheduleElement:
 
 
 class TimeSchedule:
-    schedule: list[ScheduleElement] = []
+    # チャイムを鳴らすべき時間（スケジュール）についての情報を保存
+    # printとstrメソッドは基本デバック用
+    schedule: list[ScheduleElement] = []  # 一通り入れる配列
 
     def __init__(self) -> None:
         file = open("chime.json", "r")
-        data = json.load(file)["ChimeSettings"]
+        data = json.load(file)["ChimeSettings"]  # Jsonの情報を取得
+        # Json中で1スケジュールをScheduleElement型に変換して配列に入れる
         for v in data:
             self.schedule.append(ScheduleElement(v))
+        # 時間で早い順にソートする
         self.schedule = sorted(self.schedule, key=_gettime_for_sort)
 
     def print(self) -> None:
