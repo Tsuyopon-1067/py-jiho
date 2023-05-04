@@ -31,6 +31,7 @@ class Clock:
             time.sleep(wait)
 
     def tick(self) -> None:
+        # 毎秒実行する
         today_datetime_type = datetime.today()
         now: int = int(today_datetime_type.strftime("%H%M"))  # チャイム鳴らすタイミング判定用
         now_s: str = today_datetime_type.strftime("%H%:%M:%S")  # 時計表示用
@@ -42,33 +43,36 @@ class Clock:
             for v in self.schedule:
                 self.dq.append(v)
 
-        nextstr: str = ""  # 次になるチャイムの情報
-
-        top: ScheduleElement
-        if len(self.dq) == 0:
-            nextstr = "next day"  # キューが空っぽなら明日鳴らす
-        else:
-            top = self.dq.pop()  # 一回今から最も早く鳴るチャイムの情報をもらう 鳴らさなかったら後で戻す
-
-            if top.time <= now:  # 鳴らすべき時刻を過ぎてるので鳴らしたい
-                # if light_sensor.is_open():  # 部屋が明るければ鳴らす
-                # 第2引数はチャイムを鳴らした後のsleep時間
-                sound: Sound = Sound(top.sound, 0.1)
-                self.soundqueue.put(sound)  # 別スレッドに情報を渡す
-
-                if len(self.dq) == 0:  # これならしてキューがからっぽなら明日鳴らす
-                    nextstr = "next day"
-                else:  # まだ次に鳴らすチャイムがあるならそれを表示する
-                    next: ScheduleElement = self.dq.pop()  # さらにキューから一つ取る
-                    self.dq.append(next)  # 情報をもらったら戻す
-                    nextstr = self._nextstr("playing", next)
-            else:  # まだ鳴らすべき時間でないときはtopがnextの情報なのでキューに戻して表示する
-                self.dq.append(top)
-                nextstr = self._nextstr("next", top)
-
+        # nextstr: 次になるチャイムの情報
+        # nextstrをもらいつつ必要であればチャイムを鳴らす
+        nextstr: str = self.trychime(now)
         self._printtitle(now_s, nextstr)
         # print(now_s, nextstr)
         return
+
+    def trychime(self, now: int) -> str:
+        # 鳴らすべきならチャイムを鳴らす
+        top: ScheduleElement
+        if len(self.dq) == 0:
+            return "next day"  # キューが空っぽなら明日鳴らす
+
+        top = self.dq.pop()  # 一回今から最も早く鳴るチャイムの情報をもらう 鳴らさなかったら後で戻す
+
+        if top.time <= now:  # 鳴らすべき時刻を過ぎてるので鳴らしたい
+            # if light_sensor.is_open():  # 部屋が明るければ鳴らす
+            # 第2引数はチャイムを鳴らした後のsleep時間
+            sound: Sound = Sound(top.sound, 0.1)
+            self.soundqueue.put(sound)  # 別スレッドに情報を渡す
+
+            if len(self.dq) == 0:  # チャイムをならしてキューがからっぽなら次に鳴らすのは明日
+                return "next day"
+            else:  # まだ次に鳴らすチャイムがあるならそれを表示する
+                next: ScheduleElement = self.dq.pop()  # さらにキューから一つ取って戻す
+                self.dq.append(next)
+                return self._nextstr("playing", next)
+        else:  # まだ鳴らすべき時間でないときはtopがnextの情報なのでキューに戻して表示する
+            self.dq.append(top)
+            return self._nextstr("next", top)
 
     def _nextstr(self, s: str, v: ScheduleElement) -> str:
         time: str = "{:02d}:{:02d}".format(int(v.time/100), v.time % 100)
