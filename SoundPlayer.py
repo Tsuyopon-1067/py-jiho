@@ -37,8 +37,8 @@ class SoundPlayer:
                 self.classstart(sound)
             elif sound.category == "class_end":
                 self.classend(sound)
-            # else:
-                # playsound(sound.name)
+            else:
+                playsound(sound.name)
 
     def classstart(self, sound: Sound):
         weekday = datetime.date.today().weekday()
