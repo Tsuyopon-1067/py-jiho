@@ -42,9 +42,6 @@ class SoundPlayer:
     def classstart(self, sound: Sound):
         koma: str = "voice/c" + sound.value + ".mp3"
         playsound(sound.name)
-        for i in range(10):
-            print(koma)
-            time.sleep(0.3)
         playsound("voice/c0.mp3")
         playsound(koma)
         playsound("voice/c98.mp3")
