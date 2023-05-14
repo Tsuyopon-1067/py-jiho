@@ -8,11 +8,15 @@ class ScheduleElement:
     name: str  # 科目名とか
     time: int  # 鳴らす時間
     sound: str  # 鳴らしたい音声ファイルの場所
+    category: str  # 種類
+    value: str  # 制御パラメータ
 
     def __init__(self, data: Dict[str, str]) -> None:
         self.name = data["name"]
         self.time = int(data["time"])
         self.sound = data["sound"]
+        self.category = data["category"]
+        self.value = data["value"]
 
     def print(self) -> None:
         print(self.name + ": " + str(self.time) + ", " + self.sound)

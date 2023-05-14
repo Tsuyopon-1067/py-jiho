@@ -7,11 +7,13 @@ import time
 class Sound:
     # 鳴らす音声の情報
     name: str  # 音声ファイル名
-    sleep: float  # 音声を鳴らしてからのsleep秒数
+    category: str  # 種類
+    value: str
 
-    def __init__(self, name: str, sleep: float):
+    def __init__(self, name: str, category: str, value: str):
         self.name = name
-        self.sleep = sleep
+        self.category = category
+        self.value = value
 
 
 class SoundPlayer:
@@ -29,5 +31,30 @@ class SoundPlayer:
 
             # キューが空じゃないとき以下を実行
             sound: Sound = self.soundqueue.get()  # キューから1つ音声をもらう
-            playsound(sound.name)  # 音声を鳴らして指定秒数待つ
-            time.sleep(sound.sleep)
+            print(sound.category)
+            if sound.category == "class_start":
+                self.classstart(sound)
+            elif sound.category == "class_end":
+                self.classend(sound)
+            # else:
+                # playsound(sound.name)
+
+    def classstart(self, sound: Sound):
+        koma: str = "voice/c" + sound.value + ".mp3"
+        playsound(sound.name)
+        for i in range(10):
+            print(koma)
+            time.sleep(0.3)
+        playsound("voice/c0.mp3")
+        playsound(koma)
+        playsound("voice/c98.mp3")
+
+    def classend(self, sound: Sound):
+        koma: str = "voice/c" + sound.value
+        playsound(sound.name)
+        for i in range(10):
+            print(koma)
+        time.sleep(0.3)
+        playsound("voice/c0.mp3")
+        playsound(koma)
+        playsound("voice/c99.mp3")

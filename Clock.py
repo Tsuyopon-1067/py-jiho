@@ -62,7 +62,7 @@ class Clock:
         if top.time <= now:  # 鳴らすべき時刻を過ぎてるので鳴らしたい
             # if light_sensor.is_open():  # 部屋が明るければ鳴らす
             # 第2引数はチャイムを鳴らした後のsleep時間
-            sound: Sound = Sound(top.sound, 0.1)
+            sound: Sound = Sound(top.sound, top.category, top.value)
             self.soundqueue.put(sound)  # 別スレッドに情報を渡す
 
             if len(self.dq) == 0:  # チャイムをならしてキューがからっぽなら次に鳴らすのは明日

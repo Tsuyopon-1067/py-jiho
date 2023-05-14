@@ -2,53 +2,73 @@
     "ChimeSettings": [
         {
             "name": "1コマ開始",
-            "time": "0840",
-            "sound": "0840.mp3"
+            "time": "0142",
+            "sound": "0840.mp3",
+            "category": "class_start",
+            "value": "1"
         },
         {
             "name": "1コマ終了",
             "time": "1010",
-            "sound": "0840.mp3"
+            "sound": "0840.mp3",
+            "category": "class_end",
+            "value": "1"
         },
         {
             "name": "2コマ開始",
             "time": "1020",
-            "sound": "0840.mp3"
+            "sound": "0840.mp3",
+            "category": "class_start",
+            "value": "2"
         },
         {
             "name": "2コマ終了",
             "time": "1050",
-            "sound": "0840.mp3"
+            "sound": "0840.mp3",
+            "category": "class_end",
+            "value": "2"
         },
         {
             "name": "3コマ開始",
             "time": "1245",
-            "sound": "0840.mp3"
+            "sound": "0840.mp3",
+            "category": "class_start",
+            "value": "3"
         },
         {
             "name": "3コマ終了",
             "time": "1415",
-            "sound": "0840.mp3"
+            "sound": "0840.mp3",
+            "category": "class_end",
+            "value": "3"
         },
         {
             "name": "4コマ開始",
             "time": "1425",
-            "sound": "0840.mp3"
+            "sound": "0840.mp3",
+            "category": "class_start",
+            "value": "4"
         },
         {
             "name": "4コマ終了",
             "time": "1555",
-            "sound": "0840.mp3"
+            "sound": "0840.mp3",
+            "category": "class_end",
+            "value": "4"
         },
         {
             "name": "5コマ開始",
             "time": "1605",
-            "sound": "0840.mp3"
+            "sound": "0840.mp3",
+            "category": "class_start",
+            "value": "5"
         },
         {
             "name": "5コマ終了",
             "time": "1735",
-            "sound": "0840.mp3"
+            "sound": "0840.mp3",
+            "category": "class_end",
+            "value": "5"
         }
     ]
 }
