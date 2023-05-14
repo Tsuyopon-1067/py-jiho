@@ -1,5 +1,6 @@
 from playsound import playsound
 from queue import Queue
+import datetime
 
 import time
 
@@ -40,6 +41,9 @@ class SoundPlayer:
                 # playsound(sound.name)
 
     def classstart(self, sound: Sound):
+        weekday = datetime.date.today().weekday()
+        if weekday > 4:
+            return
         koma: str = "voice/c" + sound.value + ".mp3"
         playsound(sound.name)
         playsound("voice/c0.mp3")
@@ -47,6 +51,9 @@ class SoundPlayer:
         playsound("voice/c98.mp3")
 
     def classend(self, sound: Sound):
+        weekday = datetime.date.today().weekday()
+        if weekday > 4:
+            return
         koma: str = "voice/c" + sound.value + ".mp3"
         playsound(sound.name)
         time.sleep(0.3)
