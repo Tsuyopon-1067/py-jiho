@@ -34,7 +34,7 @@ class Clock:
         # 毎秒実行する
         today_datetime_type = datetime.today()
         now: int = int(today_datetime_type.strftime("%H%M"))  # チャイム鳴らすタイミング判定用
-        now_s: str = today_datetime_type.strftime("%H%:%M:%S")  # 時計表示用
+        now_s: str = today_datetime_type.strftime("%H:%M:%S")  # 時計表示用
 
         today: int = int(today_datetime_type.strftime("%d"))  # 今日の日付
         if self.day != today:  # 日付が変わったらチャイムキューをリセットして補充し直す
