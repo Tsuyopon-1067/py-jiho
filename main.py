@@ -2,7 +2,7 @@ from Clock import Clock
 from queue import Queue
 from SoundPlayer import Sound, SoundPlayer
 from concurrent.futures import ThreadPoolExecutor
-# import light_sensor
+import light_sensor
 
 
 def main() -> None:
@@ -18,9 +18,9 @@ def main() -> None:
 
 if __name__ == '__main__':
     try:
-        # light_sensor.setup_gpio()
+        light_sensor.setup_gpio()
         main()
     except KeyboardInterrupt:
         pass
-    # finally:
-        # light_sensor.cleanup()
+    finally:
+        light_sensor.cleanup()

@@ -4,7 +4,7 @@ from TimeSchedule import TimeSchedule, ScheduleElement
 from collections import deque
 from SoundPlayer import Sound
 from queue import Queue
-# import light_sensor
+import light_sensor
 
 
 class Clock:
@@ -60,8 +60,7 @@ class Clock:
         top = self.dq.pop()  # 一回今から最も早い時間チャイムの情報をもらう まだだったら後で戻す
 
         if top.time <= now:  # 鳴らすべき時刻を過ぎてるので鳴らしたい
-            # if light_sensor.is_open():  # 部屋が明るければ鳴らす
-            if top.time == now:
+            if light_sensor.is_open() and top.time == now:  # 部屋が明るければ鳴らす
                 sound: Sound = Sound(top.sound, top.category, top.value)
                 self.soundqueue.put(sound)  # 別スレッドに情報を渡す
 
