@@ -2,73 +2,227 @@
     "ChimeSettings": [
         {
             "name": "1コマ開始",
-            "time": "0142",
-            "sound": "0840.mp3",
+            "time": "0835",
+            "sound": "sound/メロディ.mp3",
             "category": "class_start",
             "value": "1"
         },
         {
             "name": "1コマ終了",
             "time": "1010",
-            "sound": "0840.mp3",
+            "sound": "sound/あざみ野V1.mp3",
             "category": "class_end",
             "value": "1"
         },
         {
             "name": "2コマ開始",
-            "time": "1020",
-            "sound": "0840.mp3",
+            "time": "1015",
+            "sound": "sound/ナイスガイ！.mp3",
             "category": "class_start",
             "value": "2"
         },
         {
             "name": "2コマ終了",
-            "time": "1050",
-            "sound": "0840.mp3",
+            "time": "1150",
+            "sound": "sound/Departure～風の街へ～.mp3",
             "category": "class_end",
             "value": "2"
         },
         {
             "name": "3コマ開始",
-            "time": "1245",
-            "sound": "0840.mp3",
+            "time": "1240",
+            "sound": "sound/Mellow time.mp3",
             "category": "class_start",
             "value": "3"
         },
         {
             "name": "3コマ終了",
             "time": "1415",
-            "sound": "0840.mp3",
+            "sound": "sound/Humpty Dumpty.mp3",
             "category": "class_end",
             "value": "3"
         },
         {
             "name": "4コマ開始",
-            "time": "1425",
-            "sound": "0840.mp3",
+            "time": "1420",
+            "sound": "sound/希望の轍（イントロ）.mp3",
             "category": "class_start",
             "value": "4"
         },
         {
             "name": "4コマ終了",
             "time": "1555",
-            "sound": "0840.mp3",
+            "sound": "sound/SF3 教会の見える駅.mp3",
             "category": "class_end",
             "value": "4"
         },
         {
             "name": "5コマ開始",
-            "time": "1605",
-            "sound": "0840.mp3",
+            "time": "1600",
+            "sound": "sound/Sunrise.mp3",
             "category": "class_start",
             "value": "5"
         },
         {
             "name": "5コマ終了",
             "time": "1735",
-            "sound": "0840.mp3",
+            "sound": "sound/北海道・東北・秋田・山形新幹線車内チャイム.mp3",
             "category": "class_end",
             "value": "5"
+        },
+        {
+            "name": "CloseAfter1Hour",
+            "time": "2000",
+            "sound": "sound/shanai/近鉄/大和西大寺 おおスザンナ.mp3",
+            "category": "before_close",
+            "value": "60"
+        },
+        {
+            "name": "CloseAfter30min",
+            "time": "2030",
+            "sound": "sound/shanai/近鉄/大阪難波 アニーローリー.mp3",
+            "category": "before_close",
+            "value": "30"
+        },
+        {
+            "name": "CloseAfter15min",
+            "time": "2045",
+            "sound": "sound/shanai/近鉄/近鉄名古屋 ロングアゴー.mp3",
+            "category": "before_close",
+            "value": "15"
+        },
+        {
+            "name": "CloseAfter10min",
+            "time": "2050",
+            "sound": "sound/shanai/近鉄/伊勢中川 田園.mp3",
+            "category": "before_close",
+            "value": "10"
+        },
+        {
+            "name": "CloseAfter5min",
+            "time": "2055",
+            "sound": "sound/shanai/近鉄/大阪上本町 夢路より.mp3",
+            "category": "before_close",
+            "value": "5"
+        },
+        {
+            "name": "Close",
+            "time": "1325",
+            "sound": "sound/shanai/JR北海道/アルプスの牧場 キハ183系.mp3",
+            "category": "close",
+            "value": "0"
+        },
+        {
+            "name": "time signal",
+            "time": "600",
+            "sound": "sound/shanai/JR西日本/関空快速 途中駅.mp3",
+            "category": "time_signal",
+            "value": "6"
+        },
+        {
+            "name": "time signal",
+            "time": "700",
+            "sound": "sound/shanai/JR西日本/関空快速 途中駅.mp3",
+            "category": "time_signal",
+            "value": "7"
+        },
+        {
+            "name": "time signal",
+            "time": "800",
+            "sound": "sound/shanai/JR西日本/関空快速 途中駅.mp3",
+            "category": "time_signal",
+            "value": "8"
+        },
+        {
+            "name": "time signal",
+            "time": "900",
+            "sound": "sound/shanai/JR西日本/関空快速 途中駅.mp3",
+            "category": "time_signal",
+            "value": "9"
+        },
+        {
+            "name": "time signal",
+            "time": "1000",
+            "sound": "sound/shanai/JR西日本/関空快速 途中駅.mp3",
+            "category": "time_signal",
+            "value": "10"
+        },
+        {
+            "name": "time signal",
+            "time": "1000",
+            "sound": "sound/shanai/JR西日本/関空快速 途中駅.mp3",
+            "category": "time_signal",
+            "value": "10"
+        },
+        {
+            "name": "time signal",
+            "time": "1100",
+            "sound": "sound/shanai/JR西日本/関空快速 途中駅.mp3",
+            "category": "time_signal",
+            "value": "11"
+        },
+        {
+            "name": "time signal",
+            "time": "1200",
+            "sound": "sound/shanai/JR西日本/関空快速 途中駅.mp3",
+            "category": "time_signal",
+            "value": "12"
+        },
+        {
+            "name": "time signal",
+            "time": "1300",
+            "sound": "sound/shanai/JR西日本/関空快速 途中駅.mp3",
+            "category": "time_signal",
+            "value": "13"
+        },
+        {
+            "name": "time signal",
+            "time": "1334",
+            "sound": "sound/shanai/JR西日本/関空快速 途中駅.mp3",
+            "category": "time_signal",
+            "value": "14"
+        },
+        {
+            "name": "time signal",
+            "time": "1500",
+            "sound": "sound/shanai/JR西日本/関空快速 途中駅.mp3",
+            "category": "time_signal",
+            "value": "15"
+        },
+        {
+            "name": "time signal",
+            "time": "1600",
+            "sound": "sound/shanai/JR西日本/関空快速 途中駅.mp3",
+            "category": "time_signal",
+            "value": "16"
+        },
+        {
+            "name": "time signal",
+            "time": "1700",
+            "sound": "sound/shanai/JR西日本/関空快速 途中駅.mp3",
+            "category": "time_signal",
+            "value": "17"
+        },
+        {
+            "name": "time signal",
+            "time": "1800",
+            "sound": "sound/shanai/JR西日本/関空快速 途中駅.mp3",
+            "category": "time_signal",
+            "value": "18"
+        },
+        {
+            "name": "time signal",
+            "time": "1900",
+            "sound": "sound/shanai/JR西日本/関空快速 途中駅.mp3",
+            "category": "time_signal",
+            "value": "19"
+        },
+        {
+            "name": "time signal",
+            "time": "2000",
+            "sound": "sound/shanai/JR西日本/関空快速 途中駅.mp3",
+            "category": "time_signal",
+            "value": "20"
         }
     ]
 }

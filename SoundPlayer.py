@@ -32,11 +32,16 @@ class SoundPlayer:
 
             # キューが空じゃないとき以下を実行
             sound: Sound = self.soundqueue.get()  # キューから1つ音声をもらう
-            print(sound.category)
             if sound.category == "class_start":
                 self.classstart(sound)
             elif sound.category == "class_end":
                 self.classend(sound)
+            elif sound.category == "before_close":
+                self.beforeclose(sound)
+            elif sound.category == "close":
+                self.close(sound)
+            elif sound.category == "time_signal":
+                self.timesignal(sound)
             else:
                 playsound(sound.name)
 
@@ -59,3 +64,20 @@ class SoundPlayer:
         time.sleep(0.3)
         playsound(koma)
         playsound("voice/c99.mp3")
+
+    def beforeclose(self, sound: Sound):
+        koma: str = "voice/e" + sound.value + ".mp3"
+        playsound(sound.name)
+        playsound("voice/e0.mp3")
+        playsound(koma)
+        playsound("voice/e99.mp3")
+
+    def close(self, sound: Sound):
+        playsound(sound.name)
+        playsound("voice/end.mp3")
+        
+    def timesignal(self, sound: Sound):
+        koma: str = "voice/j" + sound.value + ".mp3"
+        playsound(sound.name)
+        playsound(koma)
+        playsound("voice/j99.mp3")
