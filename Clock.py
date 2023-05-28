@@ -52,18 +52,25 @@ class Clock:
 
     def trychime(self, now: int) -> str:
         # 鳴らすべきならチャイムを鳴らす
-        top: ScheduleElement
-        if len(self.dq) == 0:
-            # キューが空っぽなら明日鳴らす
+        if len(self.dq) == 0:  # キューが空っぽなら明日鳴らす
             return self._nextstr("next day", self.schedule[len(self.schedule)-1])
 
         top = self.dq.pop()  # 一回今から最も早い時間チャイムの情報をもらう まだだったら後で戻す
 
         if top.time <= now:  # 鳴らすべき時刻を過ぎてるので鳴らしたい
             if light_sensor.is_open() and top.time == now:  # 部屋が明るければ鳴らす
-                sound: Sound = Sound(top.sound, top.category, top.value)
-                self.soundqueue.put(sound)  # 別スレッドに情報を渡す
+                # 現在の時刻が指定範囲内で、Soundカテゴリが'timesignal'であるかどうかチェック
+                current_time = datetime.now().time() 
+                start_time = datetime.strptime('08:40', '%H:%M').time()
+                end_time = datetime.strptime('17:35', '%H:%M').time()
+                is_weekday = datetime.today().weekday() < 5  # 今日が平日であるかを判定（0-4が平日）
 
+                # 時間が範囲内でない、またはカテゴリが'timesignal'でない、または平日でない場合にのみ鳴らす
+                if not(is_weekday and start_time <= current_time <= end_time and top.category == 'timesignal'):
+                    sound: Sound = Sound(top.sound, top.category, top.value)
+                    self.soundqueue.put(sound)  # 別スレッドに情報を渡す
+
+            
             if len(self.dq) == 0:  # チャイムをならしてキューがからっぽなら次に鳴らすのは明日
                 return self._nextstr("next day", self.schedule[len(self.schedule)-1])
             else:  # まだ次に鳴らすチャイムがあるならそれを表示する
@@ -86,33 +93,19 @@ class Clock:
         print("|")
         print("| \033[1m" + now_s + "\033[0m" + " -> " + nextstr)
         print(self._underline)
-
+        
     def _createtitle(self) -> None:
-        yoko: int = 30
-        s: str = ""
-        t: str = ""
-        u: str = ""
-        for i in range(0, yoko-1):
-            s += "-"
-        s += "/"
+        width: int = 30
+        width_text: int = 17
+        title_text: str = "ITソルーション室"
+        end_text: str="\033[3mでんちゃっちゃ時報\033[0m"
+        
+        s = "-" * (width - 1) + "/"
+        t = "|" + " " *((width - width_text) // 2)
+        t += title_text
+        t += " " * ((width - width_text) // 2 - 1) + "/" + "    " + end_text
+        u = "-" * (width - 3) + "/" + "-" * 28
+        
 
-        t += "|"
-        for i in range(0, int((yoko-17)/2)):
-            t += " "
-        t += "ITソルーション室"
-        for i in range(0, int((yoko-17)/2)-1):
-            t += " "
-        t += "/"
-        t += "    "
-        t += "\033[3mでんちゃっちゃ時報\033[0m"
-
-        for i in range(0, yoko-3):
-            u += "-"
-        u += "/"
-        for i in range(0, 28):
-            u += "-"
-
-        self._title = s + "\n" + t + "\n" + u
-
-        for i in range(0, 56):
-            self._underline += "-"
+        self._title = "\n".join([s, t, u])
+        self._underline = "-" * 56
