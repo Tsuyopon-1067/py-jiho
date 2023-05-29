@@ -66,7 +66,7 @@ class Clock:
                 is_weekday = datetime.today().weekday() < 5  # 今日が平日であるかを判定（0-4が平日）
 
                 # 時間が範囲内でない、またはカテゴリが'timesignal'でない、または平日でない場合にのみ鳴らす
-                if not(is_weekday and start_time <= current_time <= end_time and top.category == 'timesignal'):
+                if not(is_weekday and start_time <= current_time <= end_time and top.category == 'time_signal'):
                     sound: Sound = Sound(top.sound, top.category, top.value)
                     self.soundqueue.put(sound)  # 別スレッドに情報を渡す
 
