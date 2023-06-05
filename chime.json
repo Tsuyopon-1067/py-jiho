@@ -106,13 +106,6 @@
             "value": "5"
         },
         {
-            "name": "Close",
-            "time": "1325",
-            "sound": "sound/shanai/JR北海道/アルプスの牧場 キハ183系.mp3",
-            "category": "close",
-            "value": "0"
-        },
-        {
             "name": "time signal",
             "time": "600",
             "sound": "sound/shanai/JR西日本/関空快速 途中駅.mp3",
@@ -149,13 +142,6 @@
         },
         {
             "name": "time signal",
-            "time": "1000",
-            "sound": "sound/shanai/JR西日本/関空快速 途中駅.mp3",
-            "category": "time_signal",
-            "value": "10"
-        },
-        {
-            "name": "time signal",
             "time": "1100",
             "sound": "sound/shanai/JR西日本/関空快速 途中駅.mp3",
             "category": "time_signal",
@@ -177,7 +163,7 @@
         },
         {
             "name": "time signal",
-            "time": "1334",
+            "time": "1400",
             "sound": "sound/shanai/JR西日本/関空快速 途中駅.mp3",
             "category": "time_signal",
             "value": "14"
